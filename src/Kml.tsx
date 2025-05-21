@@ -1,6 +1,6 @@
 import { gpx } from "@tmcw/togeojson";
 
-import { toKML } from "@placemarkio/tokml";
+import tokml from "tokml";
 
 export function Kml({
   geojson,
@@ -9,11 +9,11 @@ export function Kml({
   geojson: ReturnType<typeof gpx>;
   filename: string;
 }) {
-  const kml = toKML(geojson);
+  const xml = tokml(geojson).replace(/\[object Object\]/ig, '')
   return (
     <div>
       <a
-        href={`data:text/plain;charset=utf-8,${encodeURIComponent(kml)}`}
+        href={`data:text/plain;charset=utf-8,${encodeURIComponent(xml)}`}
         download={`${filename}.kml`}
         style={{
           display: "block",
