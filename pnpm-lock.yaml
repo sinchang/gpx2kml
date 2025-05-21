@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@dwayneparton/geojson-to-gpx':
+        specifier: ^0.2.0
+        version: 0.2.0
       '@tmcw/togeojson':
         specifier: ^7.1.1
         version: 7.1.1
@@ -41,6 +44,9 @@ importers:
         version: 5.8.3
 
 packages:
+
+  '@dwayneparton/geojson-to-gpx@0.2.0':
+    resolution: {integrity: sha512-3tbY47YXev/AbMpmz3XCygUYZgUHouBbeprUnxEoe6ECUEJGBAjGcfKMCr3eFIV2uH0kj7th+gfkP/Bja+oFVg==}
 
   '@module-federation/error-codes@0.13.1':
     resolution: {integrity: sha512-azgGDBnFRfqlivHOl96ZjlFUFlukESz2Rnnz/pINiSqoBBNjUE0fcAZP4X6jgrVITuEg90YkruZa7pW9I3m7Uw==}
@@ -669,6 +675,8 @@ packages:
     resolution: {integrity: sha512-MfSpIJj5Hmm0Yz788MEW1NWfdOhZR/O0WPrdiUeWBKTtCNm0jZwMJZhScqveQoE6CvUoXOQBs5/1I/nC6Sbj/w==}
 
 snapshots:
+
+  '@dwayneparton/geojson-to-gpx@0.2.0': {}
 
   '@module-federation/error-codes@0.13.1': {}
 

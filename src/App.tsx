@@ -9,19 +9,20 @@ const App = () => {
     null,
   );
   const [filename, setFilename] = React.useState<string>("file");
+  const [isGpx, setIsGpx] = React.useState<boolean>(true);
 
-  const handleDone = useCallback(() => {
-    (geojson: ReturnType<typeof gpx>, filename: string) => {
+  const handleDone = useCallback(
+    (geojson: ReturnType<typeof gpx>, filename: string, isGpx: boolean) => {
       setGeojson(geojson);
       setFilename(filename);
-    };
-  }, []);
+      setIsGpx(isGpx);
+    }, []);
 
   return (
     <div className="content">
-      <h1>GPX to KML</h1>
+      <h1>GPX {"<=>"} KML</h1>
       <FileDropzone onDone={handleDone} />
-      {geojson && <Kml geojson={geojson} filename={filename} />}
+      {geojson && <Kml geojson={geojson} filename={filename} isGpx={isGpx} />}
     </div>
   );
 };

@@ -1,15 +1,15 @@
 import { useDropzone } from "react-dropzone";
-import { gpx } from "@tmcw/togeojson";
+import { gpx, kml } from "@tmcw/togeojson";
 import { useEffect } from "react";
 
 export function FileDropzone({
   onDone,
 }: {
-  onDone?: (geojson: ReturnType<typeof gpx>, filename: string) => void;
+  onDone?: (geojson: ReturnType<typeof gpx>, filename: string, isGpx: boolean) => void;
 }) {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: {
-      "application/gpx+xml": [".gpx"],
+      "application/gpx+xml": [".gpx", ".kml"],
     },
     maxFiles: 1,
   });
@@ -17,7 +17,6 @@ export function FileDropzone({
   useEffect(() => {
     if (acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
-      console.log("file", file);
       const reader = new FileReader();
 
       reader.onabort = () => console.log("file reading was aborted");
@@ -26,9 +25,10 @@ export function FileDropzone({
         const binaryStr = reader.result;
         const decoder = new TextDecoder("utf-8");
         const xmlStr = decoder.decode(binaryStr as ArrayBuffer);
-        const gpxDom = new DOMParser().parseFromString(xmlStr, "text/xml");
-        const geojson = gpx(gpxDom);
-        onDone?.(geojson, file.name.replace(/\.gpx$/, ""));
+        const dom = new DOMParser().parseFromString(xmlStr, "text/xml");
+        const isGpx = dom.getElementsByTagName("gpx").length > 0;
+        const geojson = isGpx ? gpx(dom) : kml(dom);
+        onDone?.(geojson, file.name.replace(/\.gpx|.kml$/, ""), isGpx);
       };
 
       reader.readAsArrayBuffer(file);
